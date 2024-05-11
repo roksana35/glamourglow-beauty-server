@@ -29,7 +29,13 @@ async function run() {
 
     const serviceCollection=client.db('beautyDb').collection('services')
 
-    app.post('/service',async(req,res)=>{
+    app.get('/services',async(req,res)=>{
+      const cursor=serviceCollection.find();
+      const result=await cursor.toArray();
+      res.send(result)
+    })
+
+    app.post('/services',async(req,res)=>{
         const data=req.body;
         const result=await serviceCollection.insertOne(data)
         res.send(result)
