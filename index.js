@@ -1,7 +1,7 @@
 const express =require('express');
 const cors=require('cors');
 require('dotenv').config();
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 const app=express();
 const port=process.env.PORT || 5000;
@@ -32,6 +32,12 @@ async function run() {
     app.get('/services',async(req,res)=>{
       const cursor=serviceCollection.find();
       const result=await cursor.toArray();
+      res.send(result)
+    })
+
+    app.get('/services/:id',async(req,res)=>{
+      console.log(req.params.id)
+      const result=await serviceCollection.findOne({_id:new ObjectId(req.params.id)})
       res.send(result)
     })
 
