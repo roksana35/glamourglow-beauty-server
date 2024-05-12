@@ -28,6 +28,7 @@ async function run() {
     await client.connect();
 
     const serviceCollection=client.db('beautyDb').collection('services')
+    const purchaseCollection=client.db('beautyDb').collection('purchase')
 
     app.get('/services',async(req,res)=>{
       const cursor=serviceCollection.find();
@@ -36,8 +37,21 @@ async function run() {
     })
 
     app.get('/services/:id',async(req,res)=>{
-      console.log(req.params.id)
+      // console.log(req.params.id)
       const result=await serviceCollection.findOne({_id:new ObjectId(req.params.id)})
+      res.send(result)
+    })
+
+    app.get('/manageservice/:email',async(req,res)=>{
+      console.log(req.params.email)
+      const result=await serviceCollection.find({
+        useremail:req.params.email}).toArray()
+      res.send(result)
+    })
+    // post puchase 
+    app.post('/purchase',async(req,res)=>{
+      const quary=req.body;
+      const result=await purchaseCollection.insertOne(quary);
       res.send(result)
     })
 
