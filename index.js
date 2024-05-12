@@ -19,8 +19,7 @@ app.use(
 app.use(express.json());
 
 
-// beauty-and-grooming
-// 0RJlAQZLFpo7hhwG
+
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.qmgfwvr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -44,6 +43,15 @@ async function run() {
       const result=await cursor.toArray();
       res.send(result)
     })
+
+    // booking
+    app.get('/booking',async(req,res)=>{
+      const cursor=purchaseCollection.find();
+      const result=await cursor.toArray();
+      res.send(result)
+
+    })
+
 
     app.get('/services/:id',async(req,res)=>{
       // console.log(req.params.id)
