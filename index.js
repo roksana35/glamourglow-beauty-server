@@ -48,6 +48,11 @@ async function run() {
         useremail:req.params.email}).toArray()
       res.send(result)
     })
+    app.delete('/delete/:id',async(req,res)=>{
+      const result=await serviceCollection.deleteOne({_id:new ObjectId(req.params.id)})
+      console.log(result);
+      res.send(result)
+    })
     // post puchase 
     app.post('/purchase',async(req,res)=>{
       const quary=req.body;
