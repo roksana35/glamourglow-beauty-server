@@ -43,7 +43,7 @@ async function run() {
     })
 
     app.get('/manageservice/:email',async(req,res)=>{
-      console.log(req.params.email)
+      // console.log(req.params.email)
       const result=await serviceCollection.find({
         useremail:req.params.email}).toArray()
       res.send(result)
@@ -51,6 +51,25 @@ async function run() {
     app.delete('/delete/:id',async(req,res)=>{
       const result=await serviceCollection.deleteOne({_id:new ObjectId(req.params.id)})
       console.log(result);
+      res.send(result)
+    })
+
+    app.put('/update/:id',async(req,res)=>{
+      const quary={_id:new ObjectId(req.params.id)}
+      const data={
+        $set:{
+          
+          servicename:req.body.servicename,
+          serviceimage:req.body.serviceimage,
+          providername:req.body.providername,
+          provideremail:req.body.provideremail,
+          price:req.body.price,
+          date:req.body.date,
+          address:req.body.address,
+
+        }
+      }
+      const result=await serviceCollection.updateOne(quary,data)
       res.send(result)
     })
     // post puchase 
