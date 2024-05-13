@@ -45,8 +45,8 @@ async function run() {
     })
 
     // booking
-    app.get('/booking',async(req,res)=>{
-      const cursor=purchaseCollection.find();
+    app.get('/booking/:email',async(req,res)=>{
+      const cursor=purchaseCollection.find({currentUserEmail:req.params.email});
       const result=await cursor.toArray();
       res.send(result)
 
