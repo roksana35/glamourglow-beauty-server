@@ -51,6 +51,21 @@ async function run() {
       res.send(result)
 
     })
+    app.get('/purchase',async(req,res)=>{
+      const cursor=purchaseCollection.find()
+      const result=await cursor.toArray();
+      res.send(result)
+    })
+    app.put('/updatestatus/:id',async(req,res)=>{
+      const quary={_id:new ObjectId(req.params.id)}
+      const data={
+        $set:{
+          status:req.body.status
+        }
+      }
+      const result=await purchaseCollection.updateOne(quary,data)
+      res.send(result)
+    })
 
 
     app.get('/services/:id',async(req,res)=>{
