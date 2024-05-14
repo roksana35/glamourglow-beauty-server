@@ -74,6 +74,24 @@ async function run() {
       res.send(result)
     })
 
+
+    // app.get('/all-service', async (req, res) => {
+     
+    //   const search = req.query.search
+    //   let query = {
+    //   name: { $regex: search, $options: 'i' },
+    //   }
+    
+    //   const result = await serviceCollection
+    //     .find(query)
+    //     .toArray()
+    //   res.send(result)
+    // })
+
+
+
+
+
     app.get('/manageservice/:email',async(req,res)=>{
       // console.log(req.params.email)
       const result=await serviceCollection.find({
