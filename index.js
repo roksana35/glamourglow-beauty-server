@@ -61,7 +61,7 @@ async function run() {
       const data={
         $set:{
           status:req.body.status
-        }
+        },
       }
       const result=await purchaseCollection.updateOne(quary,data)
       res.send(result)
