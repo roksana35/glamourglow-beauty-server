@@ -51,12 +51,13 @@ async function run() {
       res.send(result)
 
     })
-    app.get('/purchase',async(req,res)=>{
-      const cursor=purchaseCollection.find()
+    app.get('/purchase/:email',async(req,res)=>{
+      const quary={providerEmail:req.params.email}
+      const cursor=purchaseCollection.find(quary)
       const result=await cursor.toArray();
       res.send(result)
     })
-    app.put('/updatestatus/:id',async(req,res)=>{
+    app.patch('/updatestatus/:id',async(req,res)=>{
       const quary={_id:new ObjectId(req.params.id)}
       const data={
         $set:{
@@ -73,23 +74,6 @@ async function run() {
       const result=await serviceCollection.findOne({_id:new ObjectId(req.params.id)})
       res.send(result)
     })
-
-
-    // app.get('/all-service', async (req, res) => {
-     
-    //   const search = req.query.search
-    //   let query = {
-    //   name: { $regex: search, $options: 'i' },
-    //   }
-    
-    //   const result = await serviceCollection
-    //     .find(query)
-    //     .toArray()
-    //   res.send(result)
-    // })
-
-
-
 
 
     app.get('/manageservice/:email',async(req,res)=>{
